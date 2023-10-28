@@ -232,7 +232,7 @@ def deleteProfile():
     }
     loggedUser = User.get_user_by_id(data)
     if loggedUser['id'] == session['user_id']:
-        Job.delete_all_user_jobs(data)
+        Movie.delete_all_user_movies(data)
         User.delete_user(data)
         return redirect('/logout')
     return redirect(request.referrer)

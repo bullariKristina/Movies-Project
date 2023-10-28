@@ -14,82 +14,76 @@ from flask_cors import CORS
 CORS(app)
 from werkzeug.utils import secure_filename
 
-# Check if the format is right 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/dashboard')
-def dashboard():
-    if 'user_id'in session:
-        loggedUserData = {
-            'user_id': session['user_id'],
-        }
-        loggedUser = User.get_user_by_id(loggedUserData)
-        if loggedUser['setUp'] == 0:
-            return redirect('/complete/register')
-        if loggedUser['is_verified'] == 0:
-            return redirect('/verify/email')
-        return render_template('dashboard.html', loggedUser = loggedUser)
-    return redirect('/')
 
-@app.route('/create/job', methods = ['POST'])
-def createJob():
+@app.route('/create/movie', methods = ['POST'])
+def createMovie():
     if 'user_id' not in session:
         return redirect('/')
     data = {
-        'title': request.form['title'],
-        'description': request.form['description'],
-        'salary': request.form['salary'],
+            'title': request.form['title'],
+            'description': request.form['description'],
+            'trailer': request.form['trailer'],
+            'rating': request.form['rating'],
+            'release_date': request.form['release_date'],
+            'run_time': request.form['run_time'],
+            'poster_pic': request.form['poster_pic'],
+            'user_id': session['user_id']
+    }
+    if not Movie.validate_movie(data):
+        return redirect(request.referrer)
+    Movie.create_movie(data)
+    #Takes the last movie created and adds as many genres for it as reccesary
+    #The html file will have a banner with a form who has an input type of select with the main movie genres
+    return redirect('/addgenre')
+
+@app.route('/addgenre')
+def add_genre():
+    if 'user_id' not in session:
+            return redirect('/')
+    data = {
         'user_id': session['user_id']
     }
-    if not Job.validate_job(data):
-        return redirect(request.referrer)
-    Job.create_job(data)
-    return redirect('/')
+    return render_template('addGenre.html', loggedUser = User.get_user_by_id(data), movie = Movie.get_last_movie())
 
 
-@app.route('/create/proposal', methods = ['POST'])
-def createProposal():
+@app.route('/add/genre', methods = ['POST'])
+def addGenre():
     if 'user_id' not in session:
         return redirect('/')
+    movie =  Movie.get_last_movie()
     data = {
-        'title': request.form['title'],
-        'description': request.form['description'],
-        'skill1': request.form['skill1'],
-        'skill2': request.form['skill2'],
-        'skill3': request.form['skill3'],
-        'user_id': session['user_id']
+        'genre_name': request.form['genre_name'],
+        'movie_id': movie['id']
     }   
-    if not Proposal.validate_proposal(data):
+    if not Genre.validate_genre(data):
         return redirect(request.referrer)
-    Proposal.create_proposal(data)
+    Genre.create_genre(data)
     return redirect(request.referrer)
 
-@app.route('/jobproposals')
-def jobProposal():
-    if 'user_id' in session:
-        loggedUserData = {
-            'user_id': session['user_id']
-        }
-    loggedUser = User.get_user_by_id(loggedUserData)
-    if not loggedUser:
-        return redirect('/')
-    return render_template('jobproposals.html', loggedUser=loggedUser, jobs = Job.get_jobs(), proposals = Proposal.get_proposals())
 
-
-@app.route('/job/<int:id>')
-def viewJob(id):
+@app.route('/movie/<int:id>')
+def viewMovie(id):
     if 'user_id' not in session:
         return redirect('/')
     data = {
         'user_id': session['user_id'],
-        'job_id': id
+        'movie_id': id
     }
     loggedUser = User.get_user_by_id(data)
-    job = Job.get_job_by_id(data)
-    creator_id = job['user_id']
+    movie = Movie.get_movie_by_id(data)
+    creator_id = movie['user_id']
     userid = {
         'user_id': creator_id
     }
-    return render_template('view.html', job = job, loggedUser = loggedUser, creator = User.get_user_by_id(userid))
+    return render_template('view.html', movie = movie, loggedUser = loggedUser, creator = User.get_user_by_id(userid))
+
+@app.route('/comment/id')
+def comment(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'user_id': session['user_id'],
+        'movie_id': id
+    }
+    
