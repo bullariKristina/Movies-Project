@@ -237,6 +237,7 @@ def deleteProfile():
         return redirect('/logout')
     return redirect(request.referrer)
 
+
 @app.route('/create')
 def create():
     if 'user_id' not in session:
@@ -244,8 +245,10 @@ def create():
     data = {
         'user_id': session['user_id']
     }
-    return render_template('create.html', loggedUser = User.get_user_by_id(data))
-
+    loggedUser = User.get_user_by_id(data)
+    if loggedUser['is_verified'] == 1:
+        return render_template('createPost.html', loggedUser = User.get_user_by_id(data))
+    return redirect('verify/email')
 
 
 

@@ -62,26 +62,25 @@
 #header{
     border-bottom: 1px dashed #666;
 }
-label {
 
-    font-family: 'Heebo', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 0.025rem;
-    font-style: normal;
-    text-transform: capitalize;
-    color: #FFFFFF;
-    background-color: #EF2D56;
-    border-radius: 0.15rem;
-    -webkit-border-radius: 0.15rem;
-    -moz-border-radius: 0.15rem;
-    padding: 0.3rem 0.4rem;
-    border-style: none;
-    border-width: 0rem;
-    border-color: #EF2D56;
-    -box-shadow: -0.25px 0.75px 9px -0.25px rgba(85,85,85,0.36);
+label {
+font-family: 'Heebo', sans-serif;
+font-size: 0.8rem;
+font-weight: 400;
+letter-spacing: 0.025rem;
+font-style: normal;
+text-transform: capitalize;
+color: #FFFFFF;
+border-radius: 0.15rem;
+-webkit-border-radius: 0.15rem;
+-moz-border-radius: 0.15rem;
+padding: 0.3rem 0.4rem;
+border-style: none;
+border-width: 0rem;
+border-color: #EF2D56;
+-box-shadow: -0.25px 0.75px 9px -0.25px rgba(85,85,85,0.36);
     
-    }
+}
     .description{
         margin-top: 130px;
         position: absolute;
@@ -93,3 +92,7 @@ label {
     .mb{
         margin-bottom: 20px;
     }
+
+.mt-150{
+  margin-top: 150px;
+}
