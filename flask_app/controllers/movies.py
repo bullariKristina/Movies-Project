@@ -50,7 +50,7 @@ def createMovie():
             }
         Movie.create_movie(data)
         
-        return redirect('/add/genre')
+        return redirect('/addgenre')
     return redirect('/')
 
 
@@ -61,7 +61,7 @@ def add_genre():
     data = {
         'user_id': session['user_id']
     }
-    return render_template('addGenre.html', loggedUser = User.get_user_by_id(data), movie = Movie.get_last_movie())
+    return render_template('genre.html', loggedUser = User.get_user_by_id(data))
 
 
 @app.route('/add/genre', methods = ['POST'])
@@ -69,14 +69,13 @@ def addGenre():
     if 'user_id' not in session:
         return redirect('/')
     movie =  Movie.get_last_movie()
+    print(movie['id'])
     data = {
         'genre_name': request.form['genre_name'],
         'movie_id': movie['id']
     }   
-    if not Genre.validate_genre(data):
-        return redirect(request.referrer)
     Genre.create_genre(data)
-    return redirect(request.referrer)
+    return redirect('/addgenre')
 
 
 @app.route('/movie/<int:id>')
@@ -95,12 +94,40 @@ def viewMovie(id):
     }
     return render_template('view.html', movie = movie, loggedUser = loggedUser, creator = User.get_user_by_id(userid))
 
-@app.route('/comment/id')
+@app.route('/comment/<int:id>')  #id of movie
 def comment(id):
     if 'user_id' not in session:
         return redirect('/')
+    
     data = {
+        'comment': request.form['comment'],
         'user_id': session['user_id'],
         'movie_id': id
     }
-    
+    User.comment(data)
+    return redirect(request.referrer())
+
+@app.route('/in/theater')
+def inTheater():
+    if 'user_id' not in session:
+        return redirect('/')
+    render_template('in_theater.html')
+
+
+@app.route('/latest/movies')
+def latestMovies():
+    if 'user_id' not in session:
+        return redirect('/')
+    render_template('in_theater.html')
+
+@app.route('/search',  methods=['POST'])
+def search():
+    if 'user_id' not in session:
+        return redirect('/')
+    data ={
+        'movie_name': request.form['movie_name']
+    }
+    movie = Movie.get_movie_search(data)
+    if movie:
+        return render_template('movie.html', movie) 
+    render_template('not_found.html')

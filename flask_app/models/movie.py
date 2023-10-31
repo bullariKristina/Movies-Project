@@ -52,6 +52,30 @@ class Movie():
         return False
     
     @classmethod
+    def get_8_last_movies(cls):
+        query = 'SELECT * FROM movies ORDER BY created_at DESC LIMIT 8;'
+        results = connectToMySQL(cls.db_name).query_db(query)
+        if results:
+            return results[0]
+        return False
+    
+    @classmethod
+    def get_last_movies_intheater(cls):
+        query = 'SELECT * FROM movies where movies.in_theater = 1 ORDER BY created_at DESC LIMIT 8;'
+        results = connectToMySQL(cls.db_name).query_db(query)
+        if results:
+            return results[0]
+        return False
+    
+    @classmethod
+    def get_movie_search(cls, data):
+        query = 'SELECT * FROM movies WHERE movies.title = %(movie_name)s;'
+        results = connectToMySQL(cls.db_name).query_db(query)
+        if results:
+            return results[0]
+        return False
+    
+    @classmethod
     def add_in_theater(cls):
         query = 'UPDATE movies SET in_theater = 1;'
         return connectToMySQL(cls.db_name).query_db(query)

@@ -29,6 +29,15 @@ class User():
         return False
 
     @classmethod
+    def get_last_user(cls):
+        query = 'SELECT * FROM users ORDER BY created_at DESC LIMIT 1;'
+        results = connectToMySQL(cls.db_name).query_db(query)
+        if results:
+            return results[0]
+        return False
+    
+
+    @classmethod
     def get_user_by_email(cls, data):
         query = "SELECT * FROM users WHERE email = %(email)s;"
         results = connectToMySQL(cls.db_name).query_db(query, data)
@@ -76,6 +85,7 @@ class User():
                 users.append(user)
             return users
         return users
+
     
     @classmethod
     def get_id(cls, data):
@@ -103,6 +113,11 @@ class User():
         if results:
             return results[0]
         return False
+    
+    @classmethod
+    def comment(cls):
+        query = "INSERT INTO comments (comment, movie_id, user_id) VALUES (%(comment)s, %(movie_id)s, %(user_id)s);"
+        return connectToMySQL(cls.db_name).query_db(query, data)
     
     
     @staticmethod

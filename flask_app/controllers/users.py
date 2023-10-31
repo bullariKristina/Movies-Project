@@ -36,7 +36,7 @@ def dashboard():
         loggedUser = User.get_user_by_id(loggedUserData)
         if loggedUser['is_verified'] == 0:
             return redirect('/verify/email')
-        return render_template('dashboard.html', loggedUser = loggedUser, movies = Movie.get_movies())
+        return render_template('dashboard.html', loggedUser = loggedUser)
     return redirect('/')
 
 @app.route('/registerpage')
@@ -80,7 +80,7 @@ def register():
     }
 
     User.create_user(data)
-
+    user = User.get_last_user()
     LOGIN = ADMINEMAIL
     TOADDRS  = data['email']
     SENDER = ADMINEMAIL
@@ -95,7 +95,7 @@ def register():
     server.login(LOGIN, PASSWORD)
     server.sendmail(SENDER, TOADDRS, msg)
     server.quit()
-
+    session['user_id'] = user['id']
     return redirect('/verify/email')
 
 

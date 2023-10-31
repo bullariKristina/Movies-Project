@@ -5,13 +5,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Planet</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/global.css') }}">
 	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> -->
   <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 </head>
 <body>
@@ -65,7 +63,7 @@
         Profile
       </a>
       <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="profile/{{user.id}}">Profile</a></li>
+        <li><a class="dropdown-item" href="profile/{{loggedUser.id}}">Profile</a></li>
         <li><a class="dropdown-item" href="/logout">Logout</a></li>
       </ul>
     </li>
@@ -73,6 +71,19 @@
 </nav>
 </section>
 
-
-</body>
-</html>
+<div class="main">
+    <form action="/add/genre" method="post">
+        <select name="genre_name" class="p-2">
+            <option value="Action">Action</option>
+            <option value="Adult">Adult</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Horror">Horror</option>
+            <option value="Drama">Drama</option>
+            <option value="History">History</option>
+            <option value="Sci-Fi">Sci-Fi</option>
+            <option value="Sport">Sport</option>
+        </select>
+        <input type="submit" value="Submit" class="p-2">
+    </form>
+</div>

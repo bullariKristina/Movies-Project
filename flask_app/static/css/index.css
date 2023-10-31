@@ -234,4 +234,8 @@ min-height:515px;
 
  }
 
-
+.image{
+    width: 1600px !important;
+    height: 600px;
+    object-fit: contain;
+}
