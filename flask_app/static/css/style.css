@@ -286,6 +286,7 @@ h1#logo a {
 .movie-image img {
 	width:152px;
 	height:214px;
+	object-fit: cover;
 }
 .movie-image a {
 	float:left;

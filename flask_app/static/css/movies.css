@@ -1,0 +1,21 @@
+body{
+    margin: auto !important;
+    width: 80%;
+}
+.themovie{
+    margin-top: 20px;
+    /* position: relative; */
+}
+div .img{
+    height: 500px;
+    width: 300px;
+}
+.abc{
+    display: inline;
+    align-items: flex-end;
+
+}
+.review{
+    /* position: absolute; */
+    bottom: 0;
+}

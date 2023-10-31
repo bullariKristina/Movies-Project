@@ -36,7 +36,7 @@ def dashboard():
         loggedUser = User.get_user_by_id(loggedUserData)
         if loggedUser['is_verified'] == 0:
             return redirect('/verify/email')
-        return render_template('dashboard.html', loggedUser = loggedUser)
+        return render_template('dashboard.html', loggedUser = loggedUser, movies = Movie.get_movies())
     return redirect('/')
 
 @app.route('/registerpage')

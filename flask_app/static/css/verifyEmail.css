@@ -1,3 +1,21 @@
+.bg-img {
+  background: url('360_F_286323187_mDk3N4nGDaPkUmhNcdBe3RjSOfKqx4nZ.jpg');
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+}
+.bg-img:after {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+} 
+
 .form {
   --glow-color: rgb(176, 255, 251);
   --glow-spread-color: rgba(123, 246, 255, 0.781);
@@ -157,14 +175,14 @@
   color: #fff;
 }
 
-.bg-img{
+/* .bg-img{
   background-repeat: no-repeat !important;
   background-size: cover !important;
 }
 
 .bg-color{
   background-color: #404f54;
-}
+} */
 
 .mt-150{
   margin-top: 150px;

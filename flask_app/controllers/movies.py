@@ -14,28 +14,45 @@ from flask_cors import CORS
 CORS(app)
 from werkzeug.utils import secure_filename
 
-
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/create/movie', methods = ['POST'])
 def createMovie():
-    if 'user_id' not in session:
-        return redirect('/')
-    data = {
+    if 'user_id' in session:
+        if not Movie.validate_movie(request.form):
+            return redirect(request.referrer)
+        if not request.files['poster_pic']:
+            flash('Image is required!', 'posterImage')
+            return redirect(request.referrer)
+   
+        image = request.files['poster_pic']
+        if not '.' in image.filename and \
+           image.filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
+            flash('Image should be in png, jpg, jpeg format!', 'postImage')
+            return redirect(request.referrer)
+        
+        if image:
+            filename1 = secure_filename(image.filename)
+            time = datetime.now().strftime("%d%m%Y%S%f")
+            time += filename1
+            filename1 = time
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename1))
+        data = {
             'title': request.form['title'],
             'description': request.form['description'],
-            'trailer': request.form['trailer'],
             'rating': request.form['rating'],
             'release_date': request.form['release_date'],
             'run_time': request.form['run_time'],
-            'poster_pic': request.form['poster_pic'],
+            'poster_pic': filename1,
             'user_id': session['user_id']
-    }
-    if not Movie.validate_movie(data):
-        return redirect(request.referrer)
-    Movie.create_movie(data)
-    #Takes the last movie created and adds as many genres for it as reccesary
-    #The html file will have a banner with a form who has an input type of select with the main movie genres
-    return redirect('/addgenre')
+            }
+        Movie.create_movie(data)
+        
+        return redirect('/add/genre')
+    return redirect('/')
+
 
 @app.route('/addgenre')
 def add_genre():

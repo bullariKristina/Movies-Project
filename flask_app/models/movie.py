@@ -8,20 +8,20 @@ class Movie():
         self.id = data['id']
         self.title = data['title']
         self.description = data['description']
-        self.traile = data['trailer']
         self.rating = data['rating']
         self.release_date = data['release_date']
         self.run_time = data['run_time']
         self.poster_pic = data['poster_pic']
         self.user_id = data['user_id']
+        self.in_theater = data['in_theater']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
     @classmethod
     def create_movie(cls, data):
-        query = "INSERT INTO movies (title, description, trailer, rating, release_date, run_time, poster_pic user_id) VALUES ( %(title)s, %(description)s, %(trailer)s, %(rating)s, %(release_date)s, %(run_time)s, %(poster_pic)s, %(user_id)s);"
+        query = "INSERT INTO movies (title, description, rating, release_date, run_time, poster_pic, user_id, in_theater) VALUES ( %(title)s, %(description)s, %(rating)s, %(release_date)s, %(run_time)s, %(poster_pic)s, %(user_id)s, 0);"
         return connectToMySQL(cls.db_name).query_db(query, data)
-    
+
     @classmethod
     def get_movies(cls):
         try:
@@ -50,6 +50,22 @@ class Movie():
         if results:
             return results[0]
         return False
+    
+    @classmethod
+    def add_in_theater(cls):
+        query = 'UPDATE movies SET in_theater = 1;'
+        return connectToMySQL(cls.db_name).query_db(query)
+    
+    @classmethod
+    def get_all_movies_intheater(cls):
+        query = 'SELECT * FROM movies where movies.in_theater = 1;'
+        results = connectToMySQL(cls.db_name).query_db(query)
+        movies= []
+        if results:
+            for movie in results:
+                movies.append(movie)
+            return movies
+        return movies
     
     @classmethod
     def delete_all_user_movies(cls, data):
@@ -112,9 +128,9 @@ class Movie():
             is_valid = False
         if len(data['description'])< 2:
             flash('Description must be more than 2 characters', 'movieDescription')
-            is_valid = False
-        if data['rating']< 0 or data['rating'] > 5:
-            flash('Our rating system supports 1-5 rating', 'movieRating')
+            is_valid = False 
+        if not data['rating']:
+            flash('Please do not leave this blank', 'movieRating')
             is_valid = False
         if not data['release_date']:
             flash('Please do not leave this blank', 'movieReleaseDate')
@@ -122,9 +138,4 @@ class Movie():
         if not data['run_time']:
             flash('Please do not leave this blank', 'movieRunTime')
             is_valid = False
-        if not data['poster_pic']:
-            flash('Please put a picture', 'moviePicture')
-            is_valid = False
-        else:
-            flash('Movie successfully posted!', 'movieSuccess')
         return is_valid
