@@ -200,7 +200,6 @@ height: 100%;
 width: 100%;
 background: rgba(0, 0, 0, 0.7);
 } 
-
 /* .button-container{
 width: 9em;
 height: 3em;
@@ -232,3 +231,45 @@ width: 9em;
 }
 .login-box a {
 color: #fff; /* Change the text color to white */
+/* Existing CSS styles... */
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+  transition: 0.5s; /* Add a smooth transition effect for the input */
+}
+
+.login-box .user-box input:focus,
+.login-box .user-box input:valid {
+  border-bottom: 1px solid #03e9f4; /* Change the border color when input is focused or has a value */
+}
+
+/* Add this part to style the "LOG IN" input similar to the button */
+.login-box .in input.submit {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #03e9f4; /* Change the text color to match the button color */
+  border: none;
+  border-bottom: 1px solid #03e9f4; /* Change the border color to match the button */
+  outline: none;
+  background: transparent;
+  transition: 0.5s;
+}
+
+.login-box .in input.submit:hover {
+  background: #03e9f4; /* Change the background color on hover to match the button */
+  color: #fff; /* Change the text color on hover to match the button */
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
+}
+
+/* Existing CSS styles... */
+
