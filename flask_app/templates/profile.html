@@ -12,67 +12,69 @@
 	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}"> -->
     <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> -->
-  <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 </head>
 <body>
+  <section id="top">
+    <div class="container">
+        <div class="row top_1">
+            <div class="col-md-3">
+                <div class="top_1l pt-1">
+                    <h3 class="mb-0"><a class="text-white" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> Planet</a></h3>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="top_1m">
 
-<section id="top">
-<div class="container">
- <div class="row top_1">
-  <div class="col-md-3">
-   <div class="top_1l pt-1">
-    <h3 class="mb-0"><a class="text-white" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> Planet</a></h3>
-   </div>
-  </div>
-  <div class="col-md-5">
-   <div class="top_1m">
-
-    <form action="/search" method="post" class="input-group">
-      <label for="movie_name"></label>
-      <input type="text" class="form-control bg-black" name="movie_name" placeholder="Search Movie...">
-      <span class="input-group-btn">
-        <input class="btn btn text-white bg_red rounded-0 border-0" type="submit" value="Search">
-      </span>
-    </form>
+                    <form action="/search" method="post" class="input-group">
+                        <label for="movie_name"></label>
+                        <input type="text" class="form-control bg-black" name="movie_name" placeholder="Search Movie...">
+                        <span class="input-group-btn">
+                            <input class="btn btn text-white bg_red rounded-0 border-0" type="submit" value="Search">
+                        </span>
+                    </form>
 				
-   </div>
-  </div>
- </div>
-</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section id="header">
-<nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
-  <div class="container">
-    <a class="navbar-brand text-white fw-bold" href="index.html"><i class="fa fa-video-camera col_red me-1"></i> MovieHunter</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mb-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
-        </li>
-		<li class="nav-item">
-          <a class="nav-link" href="/create">+Create</a>
-        </li>
+    <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> MovieHunter</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/create">+Create</a>
+                </li>
 
-    <li class="nav-item">
-          <a class="nav-link" href="/profile">in Theaters</a>
-        </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Profile
-      </a>
-      <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="profile/{{user.id}}">Profile</a></li>
-        <li><a class="dropdown-item" href="/logout">Logout</a></li>
-      </ul>
-    </li>
-  </div>
-</nav>
+                <li class="nav-item">
+                    <a class="nav-link" href="/in/theater">in Theaters</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Profile
+                    </a>
+                    <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/profile/{{loggedUser.id}}">Profile</a></li>
+                        {% if loggedUser.admin == 1 %}
+                            <li><a class="dropdown-item" href="/admin">Admin</a></li>
+                        {% endif %}
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </section>
 
-
+<script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 </body>
 </html>

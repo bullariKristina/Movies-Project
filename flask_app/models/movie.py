@@ -52,8 +52,8 @@ class Movie():
         return False
     
     @classmethod
-    def get_8_last_movies(cls):
-        query = 'SELECT * FROM movies ORDER BY created_at DESC LIMIT 8;'
+    def get_last_movies(cls):
+        query = 'SELECT * FROM movies ORDER BY created_at DESC LIMIT 4;'
         results = connectToMySQL(cls.db_name).query_db(query)
         if results:
             return results[0]
@@ -70,7 +70,7 @@ class Movie():
     @classmethod
     def get_movie_search(cls, data):
         query = 'SELECT * FROM movies WHERE movies.title = %(movie_name)s;'
-        results = connectToMySQL(cls.db_name).query_db(query)
+        results = connectToMySQL(cls.db_name).query_db(query, data)
         if results:
             return results[0]
         return False

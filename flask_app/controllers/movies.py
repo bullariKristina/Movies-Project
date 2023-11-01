@@ -108,26 +108,42 @@ def comment(id):
     return redirect(request.referrer())
 
 @app.route('/in/theater')
-def inTheater():
+def in_Theater():
     if 'user_id' not in session:
         return redirect('/')
-    render_template('in_theater.html')
+    data = {
+        'user_id': session['user_id']
+    }
+    return render_template('in_theater.html', loggedUser = User.get_user_by_id(data), movies = Movie.get_all_movies_intheater())
 
 
 @app.route('/latest/movies')
 def latestMovies():
     if 'user_id' not in session:
         return redirect('/')
-    render_template('in_theater.html')
+    return render_template('in_theater.html')
 
 @app.route('/search',  methods=['POST'])
 def search():
     if 'user_id' not in session:
         return redirect('/')
     data ={
-        'movie_name': request.form['movie_name']
+        'movie_name': request.form['movie_name'],
+        'user_id': session['user_id']
     }
     movie = Movie.get_movie_search(data)
     if movie:
-        return render_template('movie.html', movie) 
-    render_template('not_found.html')
+        return render_template('movie.html', movie = movie, loggedUser = User.get_user_by_id(data)) 
+    return render_template('not_found.html')
+
+@app.route('/admin')
+def admin():
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'user_id': session['user_id']
+    }
+    loggedUser = User.get_user_by_id(data)
+    if loggedUser['admin'] == 1:
+        return render_template('admin.html', loggedUser = loggedUser)
+    return redirect('/')

@@ -36,7 +36,9 @@ def dashboard():
         loggedUser = User.get_user_by_id(loggedUserData)
         if loggedUser['is_verified'] == 0:
             return redirect('/verify/email')
-        return render_template('dashboard.html', loggedUser = loggedUser)
+        latestMovies = Movie.get_last_movies()
+        print(latestMovies)
+        return render_template('dashboard.html', loggedUser = loggedUser, latestMovies = Movie.get_last_movies())
     return redirect('/')
 
 @app.route('/registerpage')
@@ -193,7 +195,7 @@ def profile(id):
     data = {
         'user_id': id
     }
-    return render_template('profile.html', user = User.get_user_by_id(data))
+    return render_template('profile.html', loggedUser = User.get_user_by_id(data))
 
 
 @app.route('/editprofile')
