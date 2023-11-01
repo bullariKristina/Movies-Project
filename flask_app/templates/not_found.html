@@ -1,49 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
-<body>
-    <img class="bg-img" src="{{ url_for('static', filename='img/234234-1140x641.jpg') }}" alt="">
-    <div class="login-box">
-        <h2>HELLOOOOOO</h2>
-        <form action="/register" method="post" class="text-center">
-            <div class="user-box">
-                <input type="text" name="first_name" required="">
-                <label for="first_name">First Name</label>
-            </div>
-            <div class="user-box">
-                <input type="text" name="last_name" required="">
-                <label for="last_name">Last Name</label>
-            </div>
-            <div class="user-box">
-                <input type="text" name="email" required="">
-                <label for="email">Email</label>
-            </div>
-            <div class="user-box">
-                <input type="password" name="password" required="">
-                <label for="password">Password</label>
-            </div>
-            <div class="user-box">
-                <input type="password" name="confirm_password" required="">
-                <label for="confirm_password">Confirm Password</label>
-            </div>
-            <div class="button-container text-center m-auto mb-3">
-                <div class="in w-50 m-auto text-decoration-none">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <input class="submit text-blue" type="submit" value="REGISTER">
-                </div>  
-            </div>
-            <a class="text-decoration-none text-center text-white" href="/loginpage">Already have an account ?<br>
 
-        </form>
-    </div>
-</body>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title>MovieHunter</title>
+    <link rel="icon" href="../static/img/icons8-movie-48.png" type="image/icon type">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/not_found.css') }}"> 
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:700,900" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div id="notfound">
+		<div class="notfound">
+			<div class="notfound-404">
+				<h1>404</h1>
+				<h2>Movie not found</h2>
+			</div>
+			<a href="/dashboard">Homepage</a>
+		</div>
+	</div>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
 </html>

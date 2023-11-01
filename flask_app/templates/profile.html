@@ -4,13 +4,17 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Planet</title>
+	<title>MovieHunter</title>
+    <link rel="icon" href="../static/img/icons8-movie-48.png" type="image/icon type">
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/global.css') }}">
 	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> -->
 </head>
 <body>
@@ -19,7 +23,7 @@
         <div class="row top_1">
             <div class="col-md-3">
                 <div class="top_1l pt-1">
-                    <h3 class="mb-0"><a class="text-white" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> Planet</a></h3>
+                    <h3 class="mb-0"><a class="text-white" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> MovieHunter</a></h3>
                 </div>
             </div>
             <div class="col-md-5">
@@ -75,6 +79,16 @@
     </nav>
 </section>
 
+<div class="profile mt-4">
+    <h1 class="name">{{loggedUser.first_name}}</h1>
+    <h1 class="name">{{loggedUser.last_name}}</h1>
+    <p class="email" >{{loggedUser.email}} </p>
+    <div class="d-flex ">
+        <a href="/editprofile" class="edit-button m-2">Edit</a>
+        <a href="/deleteprofile" class="delete-button m-2">Delete</a>
+    </div>
+    
+  </div>
 <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 </body>
 </html>

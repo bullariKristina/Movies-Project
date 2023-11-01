@@ -41,6 +41,7 @@ def createMovie():
             image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename1))
         data = {
             'title': request.form['title'],
+            'trailer': request.form['trailer'],
             'description': request.form['description'],
             'rating': request.form['rating'],
             'release_date': request.form['release_date'],
@@ -61,7 +62,7 @@ def add_genre():
     data = {
         'user_id': session['user_id']
     }
-    return render_template('genre.html', loggedUser = User.get_user_by_id(data))
+    return render_template('genre.html', loggedUser = User.get_user_by_id(data), movie = Movie.get_last_movie())
 
 
 @app.route('/add/genre', methods = ['POST'])
@@ -69,7 +70,6 @@ def addGenre():
     if 'user_id' not in session:
         return redirect('/')
     movie =  Movie.get_last_movie()
-    print(movie['id'])
     data = {
         'genre_name': request.form['genre_name'],
         'movie_id': movie['id']
@@ -92,7 +92,7 @@ def viewMovie(id):
     userid = {
         'user_id': creator_id
     }
-    return render_template('view.html', movie = movie, loggedUser = loggedUser, creator = User.get_user_by_id(userid))
+    return render_template('movie.html', movie = movie, loggedUser = loggedUser, creator = User.get_user_by_id(userid))
 
 @app.route('/comment/<int:id>')  #id of movie
 def comment(id):
@@ -114,14 +114,17 @@ def in_Theater():
     data = {
         'user_id': session['user_id']
     }
-    return render_template('in_theater.html', loggedUser = User.get_user_by_id(data), movies = Movie.get_all_movies_intheater())
+    return render_template('in_theater.html', loggedUser = User.get_user_by_id(data), theaterMovies = Movie.get_all_movies_intheater())
 
 
 @app.route('/latest/movies')
 def latestMovies():
     if 'user_id' not in session:
         return redirect('/')
-    return render_template('in_theater.html')
+    data = {
+        'user_id': session['user_id']
+    }
+    return render_template('in_theater.html', loggedUser = User.get_user_by_id(data), theaterMovies = Movie.get_last_movies())
 
 @app.route('/search',  methods=['POST'])
 def search():
@@ -145,5 +148,30 @@ def admin():
     }
     loggedUser = User.get_user_by_id(data)
     if loggedUser['admin'] == 1:
-        return render_template('admin.html', loggedUser = loggedUser)
+        return render_template('admin.html', loggedUser = loggedUser, movies = Movie.get_movies())
     return redirect('/')
+
+@app.route('/add/in/theater/<int:id>')
+def addTheater(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'user_id': session['user_id'],
+        'movie_id': id
+    }
+    moviesTheater = Movie.get_all_movies_intheater()
+    if 'movie_id' not in moviesTheater:
+        Movie.add_in_theater(data)
+    return redirect(request.referrer)
+
+@app.route('/remove/theater/<int:id>')
+def removeTheater(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'movie_id': id
+    }
+    Movie.remove_from_theater(data)
+    return redirect(request.referrer)
+    
+    

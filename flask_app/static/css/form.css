@@ -1,0 +1,24 @@
+/* Style the form labels */
+label {
+    display: inline-block;
+    width: 30%; /* Adjust the width as needed */
+    font-weight: bold;
+  }
+  
+  /* Style the form inputs */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  input[type="file"] {
+    width: 70%; /* Adjust the width as needed */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Adjust the widths to make labels and inputs align as needed */
+  
+  /* Add any other styling as needed */
+  

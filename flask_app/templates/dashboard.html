@@ -1,1062 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Planet</title>
+	<title>MovieHunter</title>
+	<link rel="icon" href="../static/img/icons8-movie-48.png" type="image/icon type">
+
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/global.css') }}">
-	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
-</head>
-<body>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+</head>
+
+<body>
+<!-- TOP -->
 	<section id="top">
 		<div class="container">
 			<div class="row top_1">
 				<div class="col-md-3">
 					<div class="top_1l pt-1">
-						<h3 class="mb-0"><a class="text-white" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> Planet</a></h3>
+						<h3 class="mb-0"><a class="text-white" href="/dashboard"><i
+									class="fa fa-video-camera col_red me-1"></i> MovieHunter</a></h3>
 					</div>
 				</div>
 				<div class="col-md-5">
 					<div class="top_1m">
-	
+
 						<form action="/search" method="post" class="input-group">
 							<label for="movie_name"></label>
-							<input type="text" class="form-control bg-black" name="movie_name" placeholder="Search Movie...">
+							<input type="text" class="form-control bg-black" name="movie_name"
+								placeholder="Search Movie...">
 							<span class="input-group-btn">
-								<input class="btn btn text-white bg_red rounded-0 border-0" type="submit" value="Search">
+								<input class="btn btn text-white bg_red rounded-0 border-0" type="submit"
+									value="Search">
 							</span>
 						</form>
-					
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
+<!-- NAVIGATION -->
 	<section id="header">
 		<nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
 			<div class="container">
-				<a class="navbar-brand text-white fw-bold" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> MovieHunter</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<a class="navbar-brand text-white fw-bold" href="/dashboard"><i
+						class="fa fa-video-camera col_red me-1"></i> MovieHunter</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mb-0">
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
-					</li>
-					<li class="nav-item">
-					<a class="nav-link" href="/create">+Create</a>
-					</li>
-	
-					<li class="nav-item">
-						<a class="nav-link" href="/in/theater">in Theaters</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Profile
-						</a>
-						<ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="/profile/{{loggedUser.id}}">Profile</a></li>
-							{% if loggedUser.admin == 1 %}
+					<ul class="navbar-nav mb-0">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/create">+Create</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="/in/theater">in Theaters</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">
+								Profile
+							</a>
+							<ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" href="/profile/{{loggedUser.id}}">Profile</a></li>
+								{% if loggedUser.admin == 1 %}
 								<li><a class="dropdown-item" href="/admin">Admin</a></li>
-							{% endif %}
-							<li><a class="dropdown-item" href="/logout">Logout</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
+								{% endif %}
+								<li><a class="dropdown-item" href="/logout">Logout</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
 		</nav>
 	</section>
 
-<section id="center" class="center_home">
- <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" class="" aria-current="true"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="static/UPLOADED_FOLDER/3110202310040863movie1.jpg" class="d-block w-100 image" alt="...">
-      <div class="carousel-caption d-md-block">
-       <h1 class="font_60"> Entertainment Planet</h1>
-	      <h6 class="mt-3">
-	      <span class="col_red me-3">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-		    </span>
-		        4.5 (Imdb)      Year : 2022
-		    <a class="bg_red p-2 pe-4 ps-4 ms-3 text-white d-inline-block" href="#">Action</a>
-	   </h6>
-	   <p class="mt-3">Four waves of increasingly deadly alien attacks have left most of Earth in ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-	   <p class="mb-2"><span class="col_red me-1 fw-bold">Starring:</span> Eget Nulla Semper Porta Dapibus Diam Ipsum</p>
-	   <p class="mb-2"><span class="col_red me-1 fw-bold">Genres:</span> Music</p>
-	   <p><span class="col_red me-1 fw-bold">Runtime:</span> 1h 32m</p>	
-	   <h6 class="mt-4"><a class="button" href="#"><i class="fa fa-play-circle align-middle me-1"></i> Watch Trailer</a></h6>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="static\UPLOADED_FOLDER\3110202347438253movie2.jpg" class="d-block w-100 image" alt="...">
-      <div class="carousel-caption d-md-block">
-       <h1 class="font_60"> Lorem Semper Nulla</h1>
-	   <h6 class="mt-3">
-	    <span class="col_red me-3">
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star-half-o"></i>
-		</span>
-		 4.5 (Imdb)      Year : 2022
-		 <a class="bg_red p-2 pe-4 ps-4 ms-3 text-white d-inline-block" href="#">Action</a>
-	   </h6>
-	   <p class="mt-3">Four waves of increasingly deadly alien attacks have left most of Earth in ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-	   <p class="mb-2"><span class="col_red me-1 fw-bold">Starring:</span> Eget Nulla Semper Porta Dapibus Diam Ipsum</p>
-	   <p class="mb-2"><span class="col_red me-1 fw-bold">Genres:</span> Music</p>
-	   <p><span class="col_red me-1 fw-bold">Runtime:</span> 1h 32m</p>	
-	   <h6 class="mt-4"><a class="button" href="#"><i class="fa fa-play-circle align-middle me-1"></i> Watch Trailer</a></h6>
-      </div>
-    </div>
-
-    <div class="carousel-item">
-      <img src="/static/UPLOADED_FOLDER/3110202353232763movie3.jpg" class="d-block w-100 image" alt="...">
-      <div class="carousel-caption d-md-block">
-       <h1 class="font_60"> Lorem Semper Nulla</h1>
-	   <h6 class="mt-3">
-	    <span class="col_red me-3">
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star-half-o"></i>
-		</span>
-		 4.5 (Imdb)      Year : 2022
-		 <a class="bg_red p-2 pe-4 ps-4 ms-3 text-white d-inline-block" href="#">Action</a>
-	   </h6>
-	   <p class="mt-3">Four waves of increasingly deadly alien attacks have left most of Earth in ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-	   <p class="mb-2"><span class="col_red me-1 fw-bold">Starring:</span> Eget Nulla Semper Porta Dapibus Diam Ipsum</p>
-	   <p class="mb-2"><span class="col_red me-1 fw-bold">Genres:</span> Music</p>
-	   <p><span class="col_red me-1 fw-bold">Runtime:</span> 1h 32m</p>	
-	   <h6 class="mt-4"><a class="button" href="#"><i class="fa fa-play-circle align-middle me-1"></i> Watch Trailer</a></h6>
-      </div>
-    </div>
-
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-</section>
-
-<section id="trend" class="pt-4 pb-5">
-<div class="container">
- <div class="row trend_1">
-  <div class="col-md-6 col-6">
-   <div class="trend_1l">
-    <h4 class="mb-0"><i class="fa fa-youtube-play align-middle col_red me-1"></i> Latest <span class="col_red">Movies</span></h4>
-   </div>
-  </div>
-  <div class="col-md-6 col-6">
-   <div class="trend_1r text-end">
-     <h6 class="mb-0"><a class="button" href="/latest/movies"> View All</a></h6>
-   </div>
-  </div>
- </div>
- <div class="row trend_2 mt-4">
-   <div id="carouselExampleCaptions1" class="carousel slide" data-bs-ride="carousel">
-  <!-- <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="1" aria-label="Slide 2" class="" aria-current="true"></button>
-  </div> -->
-
-
-  <div class="carousel-inner">
-	
-    <div class="carousel-item active">
-	
-      <div class="trend_2i row">
-		{% for movie in latestMovies %}
-			<div class="col-md-3 col-6">
-			<div class="trend_2im clearfix position-relative">
-				
-			<div class="trend_2im1 clearfix">
-				<div class="grid">
-			<figure class="effect-jazz mb-0">
-				<a href="movie/{{movie.id}}"><img src="../static/UPLOADED_FOLDER/{{movie.poster_pic}}" class="w-100" alt="img25"></a>
-			</figure>
-			</div>
-			</div>
-			<div class="trend_2im2 clearfix text-center position-absolute w-100 top-0">
-				<span class="fs-1"><a class="col_red" href="#"><i class="fa fa-youtube-play"></i></a></span>
-			</div>
-			</div>
-			<div class="trend_2ilast bg_grey p-3 clearfix">
-				<h5><a class="col_red" href="/movie/{{movie.id}}"></a></h5>
-				<p class="mb-2">.,..</p>
-				<span class="col_red">
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			</span>
-			<p class="mb-0">2 Views</p>
-			</div>  
-			</div>
-		
-		{% endfor %}
-		
-
-
-
-
-    <div class="carousel-item">
-      <div class="trend_2i row">
-	    {% for movie in latestMovies %}
-			<div class="col-md-3 col-6">
-			<div class="trend_2im clearfix position-relative">
-			<div class="trend_2im1 clearfix">
-				<div class="grid">
-			<figure class="effect-jazz mb-0">
-				<a href="#"><img src="img/8.jpg" class="w-100" alt="img25"></a>
-			</figure>
-		</div>
-			</div>
-			<div class="trend_2im2 clearfix text-center position-absolute w-100 top-0">
-				<span class="fs-1"><a class="col_red" href="#"><i class="fa fa-youtube-play"></i></a></span>
-			</div>
-			</div>
-			<div class="trend_2ilast bg_grey p-3 clearfix">
-				<h5><a class="col_red" href="#">Semper</a></h5>
-				<p class="mb-2">A father travels from Oklahoma to France to help his...</p>
-				<span class="col_red">
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			</span>
-			<p class="mb-0">1 Views</p>
-			</div>  
-			</div>
-		{% endfor %}
-		
-		
-		
-
-	  </div>
-    </div>
-    
-  </div>
-
-</div>
- </div>
-</div>
-</section>
-
-<section id="upcome" class="pt-4 pb-5">
-<div class="container">
- <div class="row trend_1">
-  <div class="col-md-6 col-6">
-   <div class="trend_1l">
-    <h4 class="mb-0"><i class="fa fa-youtube-play align-middle col_red me-1"></i> In <span class="col_red">Theaters</span></h4>
-   </div>
-  </div>
-  <div class="col-md-6 col-6">
-   <div class="trend_1r text-end">
-     <h6 class="mb-0"><a class="button" href="/in/theater"> View All</a></h6>
-   </div>
-  </div>
- </div>
- <div class="row trend_2 mt-4">
-   <div id="carouselExampleCaptions2" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="1" aria-label="Slide 2" class="" aria-current="true"></button>
-  </div>
-
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-		<div class="trend_2i row">
-		{% for movie in movieTheater %}
-	    <div class="col-md-4">
+	<section id="center" class="center_home">
+		<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 			
-		  <div class="trend_2im clearfix position-relative">
-		   <div class="trend_2im1 clearfix">
-		     <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/12.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="trend_2im2 clearfix text-center position-absolute w-100 top-0">
-		     <span class="fs-1"><a class="col_red" href="#"><i class="fa fa-youtube-play"></i></a></span>
-		   </div>
-		  </div>
-		  <div class="trend_2ilast bg_grey p-3 clearfix">
-		    <h5><a class="col_red" href="#">Semper</a></h5>
-			<p class="mb-2">A father travels from Oklahoma to France to help his...</p>
-			<span class="col_red">
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		</span>
-		<p class="mb-0">1 Views</p>
-		  </div>  
-		</div>
-		{% endfor %}
+			<div class="carousel-inner">
 
-		<div class="col-md-4">
-		  <div class="trend_2im clearfix position-relative">
-		   <div class="trend_2im1 clearfix">
-		     <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/13.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="trend_2im2 clearfix text-center position-absolute w-100 top-0">
-		     <span class="fs-1"><a class="col_red" href="#"><i class="fa fa-youtube-play"></i></a></span>
-		   </div>
-		  </div>
-		  <div class="trend_2ilast bg_grey p-3 clearfix">
-		    <h5><a class="col_red" href="#">Dapibus</a></h5>
-			<p class="mb-2">A father travels from Oklahoma to France to help his...</p>
-			<span class="col_red">
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		</span>
-		<p class="mb-0">1 Views</p>
-		  </div>  
-		</div>
-		<div class="col-md-4">
-		  <div class="trend_2im clearfix position-relative">
-		   <div class="trend_2im1 clearfix">
-		     <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/14.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="trend_2im2 clearfix text-center position-absolute w-100 top-0">
-		     <span class="fs-1"><a class="col_red" href="#"><i class="fa fa-youtube-play"></i></a></span>
-		   </div>
-		  </div>
-		  <div class="trend_2ilast bg_grey p-3 clearfix">
-		    <h5><a class="col_red" href="#">Ipsum</a></h5>
-			<p class="mb-2">A father travels from Oklahoma to France to help his...</p>
-			<span class="col_red">
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		</span>
-		<p class="mb-0">1 Views</p>
-		  </div>  
-		</div>
-		
-	  </div>
-    </div>
-    <div class="carousel-item">
-      <div class="trend_2i row">
-	    
-		<div class="col-md-4">
-		  <div class="trend_2im clearfix position-relative">
-		   <div class="trend_2im1 clearfix">
-		     <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/15.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="trend_2im2 clearfix text-center position-absolute w-100 top-0">
-		     <span class="fs-1"><a class="col_red" href="#"><i class="fa fa-youtube-play"></i></a></span>
-		   </div>
-		  </div>
-		  <div class="trend_2ilast bg_grey p-3 clearfix">
-		    <h5><a class="col_red" href="#">Dapibus</a></h5>
-			<p class="mb-2">A father travels from Oklahoma to France to help his...</p>
-			<span class="col_red">
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		</span>
-		<p class="mb-0">1 Views</p>
-		  </div>  
-		</div>
-		<div class="col-md-4">
-		  <div class="trend_2im clearfix position-relative">
-		   <div class="trend_2im1 clearfix">
-		     <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/16.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="trend_2im2 clearfix text-center position-absolute w-100 top-0">
-		     <span class="fs-1"><a class="col_red" href="#"><i class="fa fa-youtube-play"></i></a></span>
-		   </div>
-		  </div>
-		  <div class="trend_2ilast bg_grey p-3 clearfix">
-		    <h5><a class="col_red" href="#">Ipsum</a></h5>
-			<p class="mb-2">A father travels from Oklahoma to France to help his...</p>
-			<span class="col_red">
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		</span>
-		<p class="mb-0">1 Views</p>
-		  </div>  
-		</div>
-		<div class="col-md-4">
-		  <div class="trend_2im clearfix position-relative">
-		   <div class="trend_2im1 clearfix">
-		     <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/17.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="trend_2im2 clearfix text-center position-absolute w-100 top-0">
-		     <span class="fs-1"><a class="col_red" href="#"><i class="fa fa-youtube-play"></i></a></span>
-		   </div>
-		  </div>
+				<div class="carousel-item active">
+					<img src="../static/UPLOADED_FOLDER/{{lastMovie.poster_pic}}" class=" d-block image w-100" alt="img2324">
+					<div class="carousel-caption d-md-block">
+						<h1 class="font_60">{{lastMovie.title}}</h1>
+						<h6 class="mt-3">
+							Rating: 
+							<span class="col_red">
+								{% for i in range(lastMovie.rating) %}
+								<i class="fa fa-star"></i>
+								{% endfor %}
+							</span>
+							Release Date : {{lastMovie.release_date}}
+						</h6>
+						<p class="mt-3">{{lastMovie.description}}.</p>
+						<p class="mb-2"><span class="col_red me-1 fw-bold">Genres:</span> {{lastMovie.movie_genres}}</p>
+						<p><span class="col_red me-1 fw-bold">Runtime:</span> {{lastMovie.run_time}} min</p>
+						<h6 class="mt-4"><a class="button" href="/movie/{{lastMovie.id}}"><i class="fa fa-play-circle align-middle me-1"></i>
+								Watch Trailer</a></h6>
+					</div>
+				</div>
+				
+			</div>
+	</section>
 
-		  <div class="trend_2ilast bg_grey p-3 clearfix">
-		    <h5><a class="col_red" href="#">Lorem</a></h5>
-			<p class="mb-2">A father travels from Oklahoma to France to help his...</p>
-			<span class="col_red">
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		 <i class="fa fa-star"></i>
-		</span>
-		<p class="mb-0">1 Views</p>
-		  </div>  
-		</div>
-	  </div>
-    </div>
-    
-  </div>
+	<section id="trend" class="pt-4 pb-5">
+		<div class="container">
+			<div class="row trend_1">
+				<div class="col-md-6 col-6">
+					<div class="trend_1l">
+						<h4 class="mb-0"><i class="fa fa-youtube-play align-middle col_red me-1"></i> Latest <span
+								class="col_red">Movies</span></h4>
+					</div>
+				</div>
+				<div class="col-md-6 col-6">
+					<div class="trend_1r text-end">
+						<h6 class="mb-0"><a class="button" href="/latest/movies"> View All</a></h6>
+					</div>
+				</div>
+			</div>
+			<div class="row trend_2 mt-4">
+				<div id="carouselExampleCaptions1" class="carousel slide" data-bs-ride="carousel">
 
-</div>
- </div>
-</div>
-</section>
 
-<section id="popular" class="pt-4 pb-5 bg_grey">
-<div class="container">
- <div class="row trend_1">
-  <div class="col-md-12">
-   <div class="trend_1l">
-    <h4 class="mb-0"><i class="fa fa-youtube-play align-middle col_red me-1"></i> Trending <span class="col_red">Events</span></h4>
-   </div>
-  </div>
- </div>
- <div class="row popular_1 mt-4">
-   <ul class="nav nav-tabs  border-0 mb-0">
-    <li class="nav-item">
-        <a href="#home" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
-            <span class="d-md-block">JUST ARRIVED</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="#profile" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
-            <span class="d-md-block">POPULAR EVENTS</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="#settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-            <span class="d-md-block">TV SHOWS</span>
-        </a>
-    </li>
-	<li class="nav-item">
-        <a href="#settings_o" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-            <span class="d-md-block">FREE MOVIES</span>
-        </a>
-    </li>
-	
-</ul>
- </div>
- <div class="popular_2 row mt-4">
-   <div class="tab-content">
-    <div class="tab-pane active" id="home">
-	  <div class="popular_2i row">
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/18.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Semp Porta</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.2  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 49m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
+					<div class="carousel-inner">
+
+						<div class="carousel-item active">
+
+							<div class="trend_2i row">
+								{% for movie in latestMovies %}
+								<div class="col-md-3 col-6">
+
+									<div class="trend_2im clearfix position-relative">
+
+										<div class="trend_2im1 clearfix">
+											<div class="grid">
+												<figure class="effect-jazz mb-0">
+													<a href="/movie/{{movie.id}}"><img
+															src="../static/UPLOADED_FOLDER/{{movie.poster_pic}}"
+															class="w-100" alt="img2324"></a>
+												</figure>
+											</div>
+										</div>
+										<div class="trend_2im2 clearfix text-center position-absolute w-100 top-0">
+											<span class="fs-1"><a class="col_red" href="#"><i
+														class="fa fa-youtube-play"></i></a></span>
+										</div>
+									</div>
+									<div class="trend_2ilast bg_grey p-3 clearfix">
+										<h5><a class="col_red" href="/movie/{{movie.id}}"></a></h5>
+										<p class="mb-2">{{movie.title}}.</p>
+
+										<span class="col_red">
+											{% for i in range(movie.rating) %}
+											<i class="fa fa-star"></i>
+											{% endfor %}
+										</span>
+									</div>
+								</div>
+								{% endfor %}
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+	</section>
+
+<!-- IN THEATERS MOVIES -->
+	<section id="upcome" class="pt-4 pb-5">
+		<div class="container">
+			<div class="row trend_1">
+				<div class="col-md-6 col-6">
+					<div class="trend_1l">
+						<h4 class="mb-0"><i class="fa fa-youtube-play align-middle col_red me-1"></i> In <span
+								class="col_red">Theaters</span></h4>
+					</div>
+				</div>
+				<div class="col-md-6 col-6">
+					<div class="trend_1r text-end">
+						<h6 class="mb-0"><a class="button" href="/in/theater"> View All</a></h6>
+					</div>
+				</div>
+			</div>
+			<div class="row trend_2 mt-4">
+				<div id="carouselExampleCaptions2" class="carousel slide" data-bs-ride="carousel">
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<div class="trend_2i row">
+
+								{% for movie in theaterMovies %}
+								<div class="col-md-3 col-6">
+
+									<div class="trend_2im clearfix position-relative">
+
+										<div class="trend_2im1 clearfix">
+											<div class="grid">
+												<figure class="effect-jazz mb-0">
+													<a href="/movie/{{movie.id}}"><img
+															src="../static/UPLOADED_FOLDER/{{movie.poster_pic}}"
+															class="w-100" alt="img2324"></a>
+												</figure>
+											</div>
+										</div>
+										<div class="trend_2im2 clearfix text-center position-absolute w-100 top-0">
+											<span class="fs-1"><a class="col_red" href="#"><i
+														class="fa fa-youtube-play"></i></a></span>
+										</div>
+									</div>
+									<div class="trend_2ilast bg_grey p-3 clearfix">
+										<h5><a class="col_red" href="/movie/{{movie.id}}"></a></h5>
+										<p class="mb-2">{{movie.title}}.</p>
+
+										<span class="col_red">
+											{% for i in range(movie.rating) %}
+											<i class="fa fa-star"></i>
+											{% endfor %}
+										</span>
+										
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
 		</div>
-	   </div>
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/19.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Eget Diam</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.3  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 2h 29m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	  </div>
-	  <div class="popular_2i row mt-4">
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/20.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Quis Sem</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.4  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 59m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/21.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Ipsum Lorem</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.6  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 48m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	  </div>
-    </div>
-    <div class="tab-pane" id="profile">
-       <div class="popular_2i row">
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/22.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Semp Porta</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.2  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 49m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/23.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Eget Diam</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.3  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 2h 29m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	  </div>
-	  <div class="popular_2i row mt-4">
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/24.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Quis Sem</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.4  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 59m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/25.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Ipsum Lorem</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.6  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 48m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	  </div>
-    </div>
-    <div class="tab-pane" id="settings">
-       <div class="popular_2i row">
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/26.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Semp Porta</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.2  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 49m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/27.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Eget Diam</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.3  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 2h 29m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	  </div>
-	  <div class="popular_2i row mt-4">
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/28.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Quis Sem</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.4  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 59m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/29.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Ipsum Lorem</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.6  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 48m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	  </div>
-    </div>
-	
-	<div class="tab-pane" id="settings_o">
-	    <div class="popular_2i row">
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/18.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Semp Porta</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.2  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 49m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/19.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Eget Diam</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.3  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 2h 29m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	  </div>
-	  <div class="popular_2i row mt-4">
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/20.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Quis Sem</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.4  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 59m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	   <div class="col-md-6">
-	    <div class="popular_2i1 row">
-		 <div class="col-md-4 col-4">
-		  <div class="popular_2i1lm position-relative clearfix">
-		   <div class="popular_2i1lm1 clearfix">
-		      <div class="grid">
-		  <figure class="effect-jazz mb-0">
-			<a href="#"><img src="img/21.jpg" class="w-100" alt="img25"></a>
-		  </figure>
-	  </div>
-		   </div>
-		   <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
-		    <ul>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
-			 <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
-			</ul>
-		   </div>
-		  </div>
-		 </div>
-		 <div class="col-md-8 col-8">
-		  <div class="popular_2i1r">
-		   <h5><a class="col_red" href="#">Ipsum Lorem</a></h5>
-		   <h6>Action, Thriller</h6>
-		   <h6> Imdb 8.6  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Year : 2022 <span class="ms-2">Runtime: 1h 48m</span></h6>
-		   <p>Four waves of increasingly deadly alien attacks have left most of  ruin. Cassie is on the run, desperately trying to save her younger brother.</p>
-		   <h6 class="mb-0"><a class="button" href="#"> More Info - Trailer</a></h6>
-		  </div>
-		 </div>
-		</div>
-	   </div>
-	  </div>
-    </div>
-	
-</div>
- </div>
-</div>
-</section>
+	</section>
 
 
 
 
 
-<section id="footer_b" class="pt-3 pb-3 bg_grey">
-<div class="container">
-   <div class="row footer_1">
-     <div class="col-md-8">
-	  <div class="footer_1l">
-	   <p class="mb-0">© MovieHunter. All Rights Reserved </p>
-	  </div>
-	 </div>
-	 <div class="col-md-4">
-	  <div class="footer_1r">
-	   <ul class="mb-0">
-	    <li class="d-inline-block me-2"><a href="/dashboard">Home</a></li>
-		<li class="d-inline-block me-2"><a href="/in/theaters">In Theaters</a></li>
-	   </ul>
-	  </div>
-	 </div>
-   </div>
-</div>
-</section>
+<!-- FOOTER -->
+	<section id="footer_b" class="pt-3 pb-3 bg_grey">
+		<div class="container">
+			<div class="row footer_1">
+				<div class="col-md-8">
+					<div class="footer_1l">
+						<p class="mb-0">© MovieHunter. All Rights Reserved </p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="footer_1r">
+						<ul class="mb-0">
+							<li class="d-inline-block me-2"><a href="/dashboard">Home</a></li>
+							<li class="d-inline-block me-2"><a href="/in/theaters">In Theaters</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-<script>
-window.onscroll = function() {myFunction()};
+	<script>
+		window.onscroll = function () { myFunction() };
 
-var navbar_sticky = document.getElementById("navbar_sticky");
-var sticky = navbar_sticky.offsetTop;
-var navbar_height = document.querySelector('.navbar').offsetHeight;
+		var navbar_sticky = document.getElementById("navbar_sticky");
+		var sticky = navbar_sticky.offsetTop;
+		var navbar_height = document.querySelector('.navbar').offsetHeight;
 
-function myFunction() {
-  if (window.pageYOffset >= sticky + navbar_height) {
-    navbar_sticky.classList.add("sticky")
-	document.body.style.paddingTop = navbar_height + 'px';
-  } else {
-    navbar_sticky.classList.remove("sticky");
-	document.body.style.paddingTop = '0'
-  }
-}
-</script>
-<script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+		function myFunction() {
+			if (window.pageYOffset >= sticky + navbar_height) {
+				navbar_sticky.classList.add("sticky")
+				document.body.style.paddingTop = navbar_height + 'px';
+			} else {
+				navbar_sticky.classList.remove("sticky");
+				document.body.style.paddingTop = '0'
+			}
+		}
+	</script>
+
+	<script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 </body>
 
 </html>

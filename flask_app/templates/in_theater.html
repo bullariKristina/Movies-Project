@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MovieHunter</title>
+    <link rel="icon" href="../static/img/icons8-movie-48.png" type="image/icon type">
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/global.css') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/in_theater.css') }}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 </head>
 
@@ -19,7 +22,7 @@
         <div class="row top_1">
             <div class="col-md-3">
                 <div class="top_1l pt-1">
-                    <h3 class="mb-0"><a class="text-white" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> Planet</a></h3>
+                    <h3 class="mb-0"><a class="text-white" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> MovieHunter</a></h3>
                 </div>
             </div>
             <div class="col-md-5">
@@ -74,6 +77,34 @@
         </div>
     </nav>
 </section>
+
+<div class="main">
+    <div class="content">
+        {% for movie in theaterMovies%}
+            <div class="box">
+                <div class="movie m-2">
+                    <div class="movie-image"> <span class="play"><span class="name">{{movie.title}}</span></span> <a href="/movie/{{movie.id}}"><img src="../static/UPLOADED_FOLDER/{{movie.poster_pic}}" alt="" /></a> </div>
+                    <div class="rating d-flex justify-content-between">
+                        <p class="p-2">RATING</p>
+                        <span class="col_red">
+                            {% for i in range(movie.rating) %}
+                            <i class="fa fa-star"></i>
+                            {% endfor %}
+                        </span>
+                    
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div> 
+</div>
+
+
+
+
+
+
+
 <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 </body>
 

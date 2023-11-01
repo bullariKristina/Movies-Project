@@ -4,12 +4,15 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Planet</title>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+	<title>MovieHunter</title>
+    <link rel="icon" href="../static/img/icons8-movie-48.png" type="image/icon type">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/global.css') }}">
 	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 </head>
 <body>
@@ -19,7 +22,7 @@
         <div class="row top_1">
             <div class="col-md-3">
                 <div class="top_1l pt-1">
-                    <h3 class="mb-0"><a class="text-white" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> Planet</a></h3>
+                    <h3 class="mb-0"><a class="text-white" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> MovieHunter</a></h3>
                 </div>
             </div>
             <div class="col-md-5">
@@ -75,21 +78,28 @@
     </nav>
 </section>
 
-<div class="main">
-    <form action="/add/genre" method="post">
-        <select name="genre_name" class="p-2">
-            <option value="Action">Action</option>
-            <option value="Adult">Adult</option>
-            <option value="Thriller">Thriller</option>
-            <option value="Comedy">Comedy</option>
-            <option value="Horror">Horror</option>
-            <option value="Drama">Drama</option>
-            <option value="History">History</option>
-            <option value="Sci-Fi">Sci-Fi</option>
-            <option value="Sport">Sport</option>
-        </select>
-        <input type="submit" value="Submit" class="p-2">
-    </form>
+<div class="main m-auto mt-5 text-center">
+    <h1 class="text-center mb-5">Please add genres for movie "{{movie.title}}"</h1>
+    <div class="d-flex m-auto">
+        <form class="m-auto d-flex justify-content-evenly" action="/add/genre" method="post">
+            <select name="genre_name" class="py-2 px-5 mx-5">
+                <option value="Action">Action</option>
+                <option value="Adult">Adult</option>
+                <option value="Animation">Animation</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Documentary">Documentary</option>
+                <option value="Drama">Drama</option>
+                <option value="History">History</option>
+                <option value="Horror">Horror</option>
+                <option value="Thriller">Thriller</option>
+                <option value="Sci-Fi">Sci-Fi</option>
+                <option value="Sport">Sport</option>
+                <option value="War">War</option>    
+            </select>
+            <input type="submit" value="Submit" class="py-2 px-5 mx-5 bg-success btn">
+        </form>
+        
+    </div>
 </div>
 <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 </body>

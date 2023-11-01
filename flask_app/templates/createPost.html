@@ -4,13 +4,19 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Planet</title>
+	<title>MovieHunter</title>
+  <link rel="icon" href="../static/img/icons8-movie-48.png" type="image/icon type">
+
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form.css') }}">
+
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/global.css') }}">
 	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
   <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
 
@@ -19,7 +25,7 @@
         <div class="row top_1">
             <div class="col-md-3">
                 <div class="top_1l pt-1">
-                    <h3 class="mb-0"><a class="text-white" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> Planet</a></h3>
+                    <h3 class="mb-0"><a class="text-white" href="/dashboard"><i class="fa fa-video-camera col_red me-1"></i> MovieHunter</a></h3>
                 </div>
             </div>
             <div class="col-md-5">
@@ -76,12 +82,12 @@
 </section>
 
 <form  action="/create/movie" method="post" enctype="multipart/form-data">
-  <div class="container d-flex" >
+  <div class="container d-flex mt-4" >
     <div>
 
     </div>
   
-    <div class="w-50 mb-3">
+    <div class="w-50 mb-3 m-auto" >
       <div class="d-flex justify-content-around mb-3">
         <label for="poster_pic">Poster picture</label>
         <input type="file" name="poster_pic" class="p-2">
@@ -112,10 +118,17 @@
       {% endfor %}
       {% endif %}
       {% endwith %} 
-      <!-- <div class="d-flex justify-content-around mb-3">
-        <label for="genre">Genre</label><br>
-        <input type="text" name="genre">
-      </div> -->
+      <div class="d-flex justify-content-around mb-3">
+        <label for="trailer" class="col-2 fs-4">Trailer</label><br>
+        <input type="text" name="trailer" class="p-2">
+      </div>
+      {% with messages = get_flashed_messages(category_filter=["movieTrailer"]) %}
+      {% if messages %}
+      {% for message in messages %}
+      <p class="text-danger text-center">{{message}}</p>
+      {% endfor %}
+      {% endif %}
+      {% endwith %} 
       <div class="d-flex justify-content-around mb-3">
         <label for="release_date">Release Date</label><br>
         <input type="date" name="release_date">
@@ -139,7 +152,7 @@
       {% endif %}
       {% endwith %} 
       <div class="d-flex justify-content-around mb-3">
-        <label for="rating" class="">Rating (1-5)</label>
+        <label for="rating" class="">Rating (1-5)</label><br>
         <input type="number" name="rating" >
       </div>
       {% with messages = get_flashed_messages(category_filter=["movieRating"]) %}
@@ -150,7 +163,7 @@
       {% endif %}
       {% endwith %} 
       <div class="d-flex justify-content-around mb-3">
-        <label for="description" class="">Description</label>
+        <label for="description" class="">Description</label><br>
         <textarea name="description" id="" cols="30" rows="5"></textarea>
       </div>
       {% with messages = get_flashed_messages(category_filter=["movieDescription"]) %}

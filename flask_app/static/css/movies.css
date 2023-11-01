@@ -19,3 +19,8 @@ div .img{
     /* position: absolute; */
     bottom: 0;
 }
+.myOneMovieImage{
+        width: -webkit-fill-available;
+        height: -webkit-fill-available;
+        object-fit: scale-down;
+}

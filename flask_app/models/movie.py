@@ -14,14 +14,23 @@ class Movie():
         self.poster_pic = data['poster_pic']
         self.user_id = data['user_id']
         self.in_theater = data['in_theater']
+        self.trailer = data['trailer']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
     @classmethod
     def create_movie(cls, data):
-        query = "INSERT INTO movies (title, description, rating, release_date, run_time, poster_pic, user_id, in_theater) VALUES ( %(title)s, %(description)s, %(rating)s, %(release_date)s, %(run_time)s, %(poster_pic)s, %(user_id)s, 0);"
+        query = "INSERT INTO movies (title, description, rating, release_date, run_time, poster_pic, user_id, in_theater, trailer) VALUES ( %(title)s, %(description)s, %(rating)s, %(release_date)s, %(run_time)s, %(poster_pic)s, %(user_id)s, 0, %(trailer)s);"
         return connectToMySQL(cls.db_name).query_db(query, data)
 
+    @classmethod
+    def get_one_movie(cls, data):
+        query = 'SELECT MAX(movies.poster_pic) AS poster_pic, MAX(movies.id) AS id, movies.title AS title, MAX(movies.description) AS description, MAX(movies.rating) AS rating, MAX(movies.release_date) AS release_date, MAX(movies.run_time) AS run_time, GROUP_CONCAT(genres.genre_name) AS movie_genres FROM movies LEFT JOIN genres ON movies.id = genres.movie_id WHERE movies.id = %(movie_id)s GROUP BY movies.title ;'
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        if results:
+            return results[0]
+        return False
+    
     @classmethod
     def get_movies(cls):
         try:
@@ -53,19 +62,36 @@ class Movie():
     
     @classmethod
     def get_last_movies(cls):
+        query = 'SELECT * FROM movies ORDER BY created_at DESC;'
+        results = connectToMySQL(cls.db_name).query_db(query)
+        movies = []
+        if results:
+            for movie in results:
+                movies.append(movie)
+            return movies
+        return movies
+    
+    @classmethod
+    def get_4_last_movies(cls):
         query = 'SELECT * FROM movies ORDER BY created_at DESC LIMIT 4;'
         results = connectToMySQL(cls.db_name).query_db(query)
+        movies = []
         if results:
-            return results[0]
-        return False
+            for movie in results:
+                movies.append(movie)
+            return movies
+        return movies
     
     @classmethod
     def get_last_movies_intheater(cls):
         query = 'SELECT * FROM movies where movies.in_theater = 1 ORDER BY created_at DESC LIMIT 8;'
         results = connectToMySQL(cls.db_name).query_db(query)
+        movies = []
         if results:
-            return results[0]
-        return False
+            for movie in results:
+                movies.append(movie)
+            return movies
+        return movies
     
     @classmethod
     def get_movie_search(cls, data):
@@ -76,10 +102,15 @@ class Movie():
         return False
     
     @classmethod
-    def add_in_theater(cls):
-        query = 'UPDATE movies SET in_theater = 1;'
-        return connectToMySQL(cls.db_name).query_db(query)
+    def add_in_theater(cls, data):
+        query = 'UPDATE movies SET in_theater = 1 WHERE movies.id = %(movie_id)s;'
+        return connectToMySQL(cls.db_name).query_db(query, data)
     
+    @classmethod
+    def remove_from_theater(cls, data):
+        query = 'UPDATE movies SET in_theater = 0 WHERE movies.id = %(movie_id)s;'
+        return connectToMySQL(cls.db_name).query_db(query, data)
+
     @classmethod
     def get_all_movies_intheater(cls):
         query = 'SELECT * FROM movies where movies.in_theater = 1;'
@@ -91,6 +122,16 @@ class Movie():
             return movies
         return movies
     
+    @classmethod
+    def get_4_movies_intheater(cls):
+        query = 'SELECT * FROM movies where movies.in_theater = 1 LIMIT 4;'
+        results = connectToMySQL(cls.db_name).query_db(query)
+        movies= []
+        if results:
+            for movie in results:
+                movies.append(movie)
+            return movies
+        return movies
     @classmethod
     def delete_all_user_movies(cls, data):
         query = "DELETE FROM movies WHERE id = %(user_id)s;"

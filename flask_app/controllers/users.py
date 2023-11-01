@@ -36,9 +36,12 @@ def dashboard():
         loggedUser = User.get_user_by_id(loggedUserData)
         if loggedUser['is_verified'] == 0:
             return redirect('/verify/email')
-        latestMovies = Movie.get_last_movies()
-        print(latestMovies)
-        return render_template('dashboard.html', loggedUser = loggedUser, latestMovies = Movie.get_last_movies())
+        lastMovie = Movie.get_last_movie() 
+        data = {
+            'movie_id': lastMovie['id']
+        }
+        lastMovie = Movie.get_one_movie(data)
+        return render_template('dashboard.html', loggedUser = loggedUser, lastMovie = lastMovie, latestMovies = Movie.get_4_last_movies(), theaterMovies = Movie.get_4_movies_intheater() )
     return redirect('/')
 
 @app.route('/registerpage')
@@ -222,7 +225,7 @@ def edit_user():
     loggedUser = User.get_user_by_id(data)
     if loggedUser['id'] == session['user_id']:
         User.edit_user(data)
-        return redirect(request.referrer)
+        return redirect('/')
     return redirect(request.referrer)
 
 @app.route('/deleteprofile')
