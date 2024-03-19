@@ -95,7 +95,7 @@ class Movie():
     
     @classmethod
     def get_movie_search(cls, data):
-        query = 'SELECT * FROM movies WHERE movies.title = %(movie_name)s;'
+        query = 'SELECT * FROM movies WHERE movies.title LIKE %(movie_name)s;'
         results = connectToMySQL(cls.db_name).query_db(query, data)
         if results:
             return results[0]
@@ -172,16 +172,6 @@ class Movie():
         return 0
     
 
-    # @classmethod
-    # def get_users_for_proposal(cls, data):
-    #     query = 'SELECT * FROM users LEFT JOIN proposals ON users.developer = proposals.skill1 AND users.language = proposals.skill2  WHERE proposals.id = %(proposal_id)s;'
-    #     results = connectToMySQL(cls.db_name).query_db(query, data)
-    #     users= []
-    #     if results:
-    #         for user in results:
-    #             users.append(user)
-    #         return users
-    #     return users
     
 
 
